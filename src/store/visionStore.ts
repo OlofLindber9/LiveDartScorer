@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import type { BoardCalibration, DetectedDart } from '../types/vision';
 
 interface VisionStore {
-  isOpenCVReady: boolean;
+  isOpenCVReady:  boolean;
   isLoading: boolean;
   calibration: BoardCalibration | null;
   detectedDarts: DetectedDart[];

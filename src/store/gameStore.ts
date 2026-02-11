@@ -3,7 +3,7 @@ import type { DartScore, GameState, Player } from '../types/game';
 import { createPlayer, throwDart, type ThrowResult } from '../services/game/GameEngine';
 
 interface GameStore extends GameState {
-  lastResult: ThrowResult | null;
+  lastResult:  ThrowResult | null;
   initGame: (playerNames: string[]) => void;
   addDart: (score: DartScore) => void;
   undoLastDart: () => void;
