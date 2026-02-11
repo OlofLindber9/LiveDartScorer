@@ -1,7 +1,7 @@
 import { useGameStore } from '../../store/gameStore';
 
 export function Scoreboard() {
-  const players = useGameStore((s) => s.players);
+  const players  = useGameStore((s) => s.players);
   const currentPlayerIndex = useGameStore((s) => s.currentPlayerIndex);
 
   return (

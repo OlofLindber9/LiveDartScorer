@@ -15,7 +15,7 @@ interface Props {
 }
 
 export function GameScreen({ pipeline }: Props) {
-  const addDart = useGameStore((s) => s.addDart);
+  const addDart  = useGameStore((s) => s.addDart);
   const currentTurn = useGameStore((s) => s.currentTurn);
   const needsFallback = useVisionStore((s) => s.needsFallback);
   const [useManual, setUseManual] = useState(!pipeline);

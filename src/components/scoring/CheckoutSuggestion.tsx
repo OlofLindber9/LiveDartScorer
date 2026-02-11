@@ -3,7 +3,7 @@ import { getCheckoutSuggestion } from '../../services/game/CheckoutEngine';
 
 export function CheckoutSuggestion() {
   const players = useGameStore((s) => s.players);
-  const currentPlayerIndex = useGameStore((s) => s.currentPlayerIndex);
+  const currentPlayerIndex  = useGameStore((s) => s.currentPlayerIndex);
   const currentTurn = useGameStore((s) => s.currentTurn);
 
   const player = players[currentPlayerIndex];

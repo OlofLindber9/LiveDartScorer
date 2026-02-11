@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useGameStore } from '../../store/gameStore';
 
 export function TurnDisplay() {
-  const currentTurn = useGameStore((s) => s.currentTurn);
+  const currentTurn  = useGameStore((s) => s.currentTurn);
   const players = useGameStore((s) => s.players);
   const currentPlayerIndex = useGameStore((s) => s.currentPlayerIndex);
   const lastResult = useGameStore((s) => s.lastResult);

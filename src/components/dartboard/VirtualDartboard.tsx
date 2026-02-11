@@ -8,7 +8,7 @@ interface Props {
   placedDarts?: DartScore[];
 }
 
-const SVG_SCALE = 2; // Scale up radii for better SVG resolution
+const SVG_SCALE = 2;  // Scale up radii for better SVG resolution
 const OUTER_R = BOARD_RADII.DOUBLE_OUTER * SVG_SCALE;
 const VIEW_SIZE = OUTER_R + 20;
 
