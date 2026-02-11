@@ -1,6 +1,6 @@
 export interface DartScore {
   segment: number;
-  multiplier: 1 | 2 | 3;
+  multiplier:  1 | 2 | 3;
   value: number;
   label: string;
 }

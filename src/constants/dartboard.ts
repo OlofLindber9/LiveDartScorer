@@ -14,7 +14,7 @@ export const SEGMENT_ORDER = [
   3, 19, 7, 16, 8, 11, 14, 9, 12, 5,
 ] as const;
 
-export const SEGMENT_ARC_DEG = 18;
+export const SEGMENT_ARC_DEG  = 18;
 
 // Standard dartboard colors
 export const BOARD_COLORS = {

@@ -1,5 +1,5 @@
 export interface BoardCalibration {
-  center: { x: number; y: number };
+  center: { x: number;  y: number };
   outerRadius: number;
   pixelsPerMm: number;
   confidence: number;
