@@ -7,7 +7,7 @@ import { ResultScreen } from './components/screens/ResultScreen';
 import type { VisionPipeline } from './services/vision/VisionPipeline';
 
 export function App() {
-  const gamePhase = useGameStore((s) => s.gamePhase);
+  const gamePhase  = useGameStore((s) => s.gamePhase);
   const setPhase = useGameStore((s) => s.setPhase);
   const pipelineRef = useRef<VisionPipeline | null>(null);
 

@@ -5,7 +5,7 @@ export function ResultScreen() {
   const winner = useGameStore((s) => s.winner);
   const resetGame = useGameStore((s) => s.resetGame);
 
-  const winnerPlayer = players.find((p) => p.id === winner);
+  const winnerPlayer = players.find((p) =>  p.id === winner);
 
   return (
     <div style={{
