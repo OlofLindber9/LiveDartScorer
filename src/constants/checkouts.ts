@@ -1,4 +1,4 @@
-// Pre-computed optimal checkout routes for 501 (double-out)
+// Pre-computed optimal checkout routes for  501 (double-out)
 // Format: remaining score -> [dart1, dart2?, dart3?]
 export const CHECKOUT_TABLE: Record<number, string[]> = {
   // 3-dart finishes (101-170)

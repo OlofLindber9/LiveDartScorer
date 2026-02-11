@@ -8,7 +8,7 @@ export interface CheckoutSuggestion {
 }
 
 export function getCheckoutSuggestion(remaining: number): CheckoutSuggestion | null {
-  if (remaining > 170 || remaining < 2) return null;
+  if (remaining > 170 ||  remaining < 2) return null;
 
   if ((IMPOSSIBLE_FINISHES as readonly number[]).includes(remaining)) {
     return { remaining, route: [], isCheckout: false, dartsNeeded: 0 };

@@ -1,7 +1,7 @@
 import type { DartScore, GameState, Player, Turn } from '../../types/game';
 import { STARTING_SCORE } from '../../constants/game';
 
-export type ThrowResult = 'continue' | 'bust' | 'win' | 'turn_complete';
+export type ThrowResult =  'continue' | 'bust' | 'win' | 'turn_complete';
 
 export function createPlayer(id: number, name: string): Player {
   return {
