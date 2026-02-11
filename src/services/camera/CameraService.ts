@@ -1,5 +1,5 @@
 export class CameraService {
-  private stream: MediaStream | null = null;
+  private stream:  MediaStream | null = null;
 
   async start(
     videoEl: HTMLVideoElement,

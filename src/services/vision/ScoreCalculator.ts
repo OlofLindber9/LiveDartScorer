@@ -2,7 +2,7 @@ import { BOARD_RADII, SEGMENT_ORDER, SEGMENT_ARC_DEG } from '../../constants/dar
 import type { DartScore } from '../../types/game';
 
 export function calculateScore(x: number, y: number): DartScore {
-  const distance = Math.sqrt(x * x + y * y);
+  const distance = Math.sqrt(x  * x + y * y);
 
   if (distance <= BOARD_RADII.BULL) {
     return { segment: 25, multiplier: 2, value: 50, label: 'BULL' };

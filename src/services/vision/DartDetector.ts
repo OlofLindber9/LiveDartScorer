@@ -3,7 +3,7 @@ import type { BoardCalibration, DetectedDart } from '../../types/vision';
 
 export class DartDetector {
   private cv: any;
-  private referenceFrame: any = null;
+  private referenceFrame:  any = null;
 
   constructor(cv: any) {
     this.cv = cv;

@@ -8,7 +8,7 @@ import type { DartScore } from '../../types/game';
 export const CONFIDENCE_THRESHOLD = 0.6;
 
 export class VisionPipeline {
-  private boardDetector: BoardDetector;
+  private boardDetector:  BoardDetector;
   private dartDetector: DartDetector;
   private calibration: BoardCalibration | null = null;
 

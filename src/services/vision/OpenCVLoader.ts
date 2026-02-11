@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-let cvInstance: any = null;
+let cvInstance:  any = null;
 let loadPromise: Promise<any> | null = null;
 
 declare global {

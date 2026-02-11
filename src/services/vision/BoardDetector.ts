@@ -6,7 +6,7 @@ export class BoardDetector {
   private cv: any;
 
   constructor(cv: any) {
-    this.cv = cv;
+    this.cv  = cv;
   }
 
   detectBoard(frame: any): BoardCalibration | null {
