@@ -12,7 +12,7 @@ interface Props {
 }
 
 export function CalibrationScreen({ onCalibrated, onSkip }: Props) {
-  const pipelineRef = useRef<VisionPipeline | null>(null);
+  const pipelineRef = useRef<VisionPipeline  | null>(null);
   const setCalibration = useVisionStore((s) => s.setCalibration);
   const setOpenCVReady = useVisionStore((s) => s.setOpenCVReady);
   const setLoading = useVisionStore((s) => s.setLoading);

@@ -8,7 +8,7 @@ interface Props {
 }
 
 export function CameraView({ onFrame, active }: Props) {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoRef  = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const cameraRef = useRef<CameraService | null>(null);
   const animFrameRef = useRef<number>(0);

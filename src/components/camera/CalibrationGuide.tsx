@@ -1,7 +1,7 @@
 import { useVisionStore } from '../../store/visionStore';
 
 export function CalibrationGuide() {
-  const confidence = useVisionStore((s) => s.confidence);
+  const confidence  = useVisionStore((s) => s.confidence);
   const calibration = useVisionStore((s) => s.calibration);
 
   return (

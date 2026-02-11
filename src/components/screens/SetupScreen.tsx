@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useGameStore } from '../../store/gameStore';
 
 export function SetupScreen() {
-  const [playerCount, setPlayerCount] = useState(1);
+  const [playerCount, setPlayerCount] =  useState(1);
   const [names, setNames] = useState(['Player 1', 'Player 2']);
   const initGame = useGameStore((s) => s.initGame);
 
