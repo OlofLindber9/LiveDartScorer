@@ -6,9 +6,10 @@ interface Props {
   onFrame?: (imageData: ImageData) => void;
   active: boolean;
   videoFile?: File;
+  paused?: boolean;
 }
 
-export function CameraView({ onFrame, active, videoFile }: Props) {
+export function CameraView({ onFrame, active, videoFile, paused }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const cameraRef = useRef<CameraService | null>(null);
@@ -135,6 +136,16 @@ export function CameraView({ onFrame, active, videoFile }: Props) {
       }
     };
   }, [ready, onFrame]);
+
+  // Pause/resume video playback
+  useEffect(() => {
+    if (!videoRef.current || !ready || !videoFile) return;
+    if (paused) {
+      videoRef.current.pause();
+    } else {
+      videoRef.current.play();
+    }
+  }, [paused, ready, videoFile]);
 
   return (
     <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9' }}>

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { BoardDetector } from './BoardDetector';
+import { BoardDetector, type CalibrationDebug } from './BoardDetector';
 import { DartDetector } from './DartDetector';
 import { calculateScore } from './ScoreCalculator';
 import type { BoardCalibration, DetectedDart } from '../../types/vision';
@@ -19,10 +19,8 @@ export class VisionPipeline {
 
   calibrate(frame: any): BoardCalibration | null {
     this.calibration = this.boardDetector.detectBoard(frame);
-    if (
-      this.calibration &&
-      this.calibration.confidence > CONFIDENCE_THRESHOLD
-    ) {
+    if (this.calibration) {
+      // Always set reference frame when board is detected, even at low confidence
       this.dartDetector.setReferenceFrame(frame);
     }
     return this.calibration;
@@ -56,6 +54,10 @@ export class VisionPipeline {
 
   getCalibration(): BoardCalibration | null {
     return this.calibration;
+  }
+
+  getCalibrationDebug(): CalibrationDebug | null {
+    return this.boardDetector.lastDebug;
   }
 
   dispose(): void {
