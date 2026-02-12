@@ -1,4 +1,4 @@
-import { useCallback, useRef, useEffect } from 'react';
+import { useCallback, useRef, useEffect, useState } from 'react';
 import { CameraView } from '../camera/CameraView';
 import { CalibrationGuide } from '../camera/CalibrationGuide';
 import { useVisionStore } from '../../store/visionStore';
@@ -7,12 +7,13 @@ import { getOpenCV } from '../../services/vision/OpenCVLoader';
 import { VisionPipeline } from '../../services/vision/VisionPipeline';
 
 interface Props {
-  onCalibrated: (pipeline: VisionPipeline) => void;
-  onSkip: () => void;
+  onCalibrated: (pipeline: VisionPipeline, videoFile?: File) => void;
+  onSkip: (videoFile?: File) => void;
 }
 
 export function CalibrationScreen({ onCalibrated, onSkip }: Props) {
   const pipelineRef = useRef<VisionPipeline  | null>(null);
+  const [videoFile, setVideoFile] = useState<File | null>(null);
   const setCalibration = useVisionStore((s) => s.setCalibration);
   const setOpenCVReady = useVisionStore((s) => s.setOpenCVReady);
   const setLoading = useVisionStore((s) => s.setLoading);
@@ -57,8 +58,13 @@ export function CalibrationScreen({ onCalibrated, onSkip }: Props) {
 
   const handleConfirm = () => {
     if (pipelineRef.current) {
-      onCalibrated(pipelineRef.current);
+      onCalibrated(pipelineRef.current, videoFile ?? undefined);
     }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] ?? null;
+    setVideoFile(file);
   };
 
   if (gamePhase !== 'calibration') return null;
@@ -94,18 +100,53 @@ export function CalibrationScreen({ onCalibrated, onSkip }: Props) {
       )}
 
       <div style={{ width: '100%', maxWidth: '500px' }}>
-        <CameraView active={isOpenCVReady} onFrame={handleFrame} />
+        <CameraView active={isOpenCVReady || !!videoFile} onFrame={handleFrame} videoFile={videoFile ?? undefined} />
       </div>
 
       <CalibrationGuide />
 
+      <div style={{
+        width: '100%',
+        maxWidth: '500px',
+        padding: '12px',
+        borderRadius: 'var(--radius)',
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border)',
+        textAlign: 'center',
+      }}>
+        <label style={{ display: 'block', marginBottom: '8px', color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
+          Or upload a video file for testing
+        </label>
+        <input
+          type="file"
+          accept="video/mp4,video/*"
+          onChange={handleFileChange}
+          style={{ fontSize: '0.85rem', color: 'var(--text-primary)' }}
+        />
+        {videoFile && (
+          <p style={{ marginTop: '8px', fontSize: '0.8rem', color: 'var(--success)' }}>
+            Loaded: {videoFile.name}
+          </p>
+        )}
+      </div>
+
       <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
         {calibration && confidence >= 0.6 && (
           <button className="btn btn-primary btn-lg" onClick={handleConfirm}>
-            Start with Camera
+            {videoFile ? 'Start with Video' : 'Start with Camera'}
           </button>
         )}
-        <button className="btn btn-secondary btn-lg" onClick={onSkip}>
+        {videoFile && !(calibration && confidence >= 0.6) && pipelineRef.current && (
+          <button className="btn btn-primary btn-lg" onClick={handleConfirm}>
+            Start with Video
+          </button>
+        )}
+        {videoFile && !(calibration && confidence >= 0.6) && !pipelineRef.current && (
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
+            Waiting for OpenCV to load...
+          </p>
+        )}
+        <button className="btn btn-secondary btn-lg" onClick={() => onSkip()}>
           Skip — Use Manual Input
         </button>
       </div>

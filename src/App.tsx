@@ -10,13 +10,16 @@ export function App() {
   const gamePhase  = useGameStore((s) => s.gamePhase);
   const setPhase = useGameStore((s) => s.setPhase);
   const pipelineRef = useRef<VisionPipeline | null>(null);
+  const videoFileRef = useRef<File | null>(null);
 
-  const handleCalibrated = (pipeline: VisionPipeline) => {
+  const handleCalibrated = (pipeline: VisionPipeline, videoFile?: File) => {
     pipelineRef.current = pipeline;
+    videoFileRef.current = videoFile ?? null;
     setPhase('playing');
   };
 
-  const handleSkipCalibration = () => {
+  const handleSkipCalibration = (videoFile?: File) => {
+    videoFileRef.current = videoFile ?? null;
     setPhase('playing');
   };
 
@@ -31,7 +34,7 @@ export function App() {
         />
       );
     case 'playing':
-      return <GameScreen pipeline={pipelineRef.current} />;
+      return <GameScreen pipeline={pipelineRef.current} videoFile={videoFileRef.current ?? undefined} />;
     case 'finished':
       return <ResultScreen />;
     default:
