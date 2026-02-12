@@ -17,6 +17,7 @@ interface Props {
 }
 
 export function GameScreen({ pipeline, videoFile }: Props) {
+  const isTestMode = window.location.pathname.endsWith('/test');
   const addDart  = useGameStore((s) => s.addDart);
   const currentTurn = useGameStore((s) => s.currentTurn);
   const needsFallback = useVisionStore((s) => s.needsFallback);
@@ -115,8 +116,8 @@ export function GameScreen({ pipeline, videoFile }: Props) {
           <div style={{ width: '100%', maxWidth: '500px' }}>
             <CameraView active onFrame={handleFrame} videoFile={videoFile} paused={videoPaused} />
 
-            {/* Video controls */}
-            {videoFile && (
+            {/* Video controls (test mode only) */}
+            {isTestMode && videoFile && (
               <div style={{ display: 'flex', gap: '6px', marginTop: '8px', justifyContent: 'center' }}>
                 <button
                   className={`btn ${videoPaused ? 'btn-primary' : 'btn-secondary'}`}
@@ -135,95 +136,97 @@ export function GameScreen({ pipeline, videoFile }: Props) {
               </div>
             )}
 
-            {/* Debug panel */}
-            <div style={{
-              marginTop: '8px',
-              padding: '10px',
-              borderRadius: 'var(--radius)',
-              background: 'rgba(0,0,0,0.7)',
-              fontSize: '0.75rem',
-              fontFamily: 'monospace',
-              color: '#aaa',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '3px',
-            }}>
-              <div style={{ color: '#fff', fontWeight: 600, marginBottom: '2px' }}>Debug</div>
+            {/* Debug panel (test mode only) */}
+            {isTestMode && (
+              <div style={{
+                marginTop: '8px',
+                padding: '10px',
+                borderRadius: 'var(--radius)',
+                background: 'rgba(0,0,0,0.7)',
+                fontSize: '0.75rem',
+                fontFamily: 'monospace',
+                color: '#aaa',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '3px',
+              }}>
+                <div style={{ color: '#fff', fontWeight: 600, marginBottom: '2px' }}>Debug</div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>Calibration:</span>
-                <span style={{ color: calibration ? (confidence >= 0.6 ? '#2e7d32' : '#ff9800') : '#e53935' }}>
-                  {calibration ? `${Math.round(confidence * 100)}%` : 'None'}
-                </span>
-              </div>
-              {calibration && (
-                <>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span>Board center:</span>
-                    <span>{Math.round(calibration.center.x)}, {Math.round(calibration.center.y)}</span>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span>Board radius:</span>
-                    <span>{Math.round(calibration.outerRadius)}px ({calibration.pixelsPerMm.toFixed(1)} px/mm)</span>
-                  </div>
-                </>
-              )}
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>Frames processed:</span>
-                <span>{debugInfo.framesProcessed}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>Darts in frame:</span>
-                <span>{debugInfo.dartsDetected}</span>
-              </div>
-
-              {/* Calibration debug details */}
-              {calDebug && (
-                <>
-                  <div style={{ borderTop: '1px solid #444', marginTop: '4px', paddingTop: '4px', color: '#fff', fontWeight: 600 }}>
-                    Last calibration attempt
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span>Frame size:</span>
-                    <span>{calDebug.frameSize}</span>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span>Circles found:</span>
-                    <span style={{ color: calDebug.circlesFound > 0 ? '#2e7d32' : '#e53935' }}>
-                      {calDebug.circlesFound}
-                    </span>
-                  </div>
-                  {calDebug.circlesFound > 0 && (
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span>Calibration:</span>
+                  <span style={{ color: calibration ? (confidence >= 0.6 ? '#2e7d32' : '#ff9800') : '#e53935' }}>
+                    {calibration ? `${Math.round(confidence * 100)}%` : 'None'}
+                  </span>
+                </div>
+                {calibration && (
+                  <>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span>Concentric:</span>
-                      <span style={{ color: calDebug.concentricFound >= 2 ? '#2e7d32' : '#e53935' }}>
-                        {calDebug.concentricFound} (need 2+, threshold {calDebug.concentricThreshold}px)
+                      <span>Board center:</span>
+                      <span>{Math.round(calibration.center.x)}, {Math.round(calibration.center.y)}</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span>Board radius:</span>
+                      <span>{Math.round(calibration.outerRadius)}px ({calibration.pixelsPerMm.toFixed(1)} px/mm)</span>
+                    </div>
+                  </>
+                )}
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span>Frames processed:</span>
+                  <span>{debugInfo.framesProcessed}</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span>Darts in frame:</span>
+                  <span>{debugInfo.dartsDetected}</span>
+                </div>
+
+                {/* Calibration debug details */}
+                {calDebug && (
+                  <>
+                    <div style={{ borderTop: '1px solid #444', marginTop: '4px', paddingTop: '4px', color: '#fff', fontWeight: 600 }}>
+                      Last calibration attempt
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span>Frame size:</span>
+                      <span>{calDebug.frameSize}</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span>Circles found:</span>
+                      <span style={{ color: calDebug.circlesFound > 0 ? '#2e7d32' : '#e53935' }}>
+                        {calDebug.circlesFound}
                       </span>
                     </div>
-                  )}
-                  {calDebug.circlesFound > 0 && calDebug.allCircles.length <= 10 && (
-                    <div style={{ fontSize: '0.65rem', color: '#888' }}>
-                      Circles: {calDebug.allCircles.map((c, i) => `#${i + 1}(${c.x},${c.y} r=${c.r})`).join(', ')}
-                    </div>
-                  )}
-                  {calDebug.circlesFound > 10 && (
-                    <div style={{ fontSize: '0.65rem', color: '#888' }}>
-                      Circles: {calDebug.allCircles.slice(0, 5).map((c, i) => `#${i + 1}(${c.x},${c.y} r=${c.r})`).join(', ')} ... +{calDebug.circlesFound - 5} more
-                    </div>
-                  )}
-                  {calDebug.failReason && (
-                    <div style={{ color: '#e53935', fontSize: '0.7rem', marginTop: '2px' }}>
-                      Fail: {calDebug.failReason}
-                    </div>
-                  )}
-                  {calDebug.confidenceBreakdown && (
-                    <div style={{ fontSize: '0.65rem', color: '#888' }}>
-                      Scores: concentric={calDebug.confidenceBreakdown.concentricScore} bounds={calDebug.confidenceBreakdown.boundsScore} ratio={calDebug.confidenceBreakdown.ratioScore} (err={calDebug.confidenceBreakdown.ratioError})
-                    </div>
-                  )}
-                </>
-              )}
-            </div>
+                    {calDebug.circlesFound > 0 && (
+                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <span>Concentric:</span>
+                        <span style={{ color: calDebug.concentricFound >= 2 ? '#2e7d32' : '#e53935' }}>
+                          {calDebug.concentricFound} (need 2+, threshold {calDebug.concentricThreshold}px)
+                        </span>
+                      </div>
+                    )}
+                    {calDebug.circlesFound > 0 && calDebug.allCircles.length <= 10 && (
+                      <div style={{ fontSize: '0.65rem', color: '#888' }}>
+                        Circles: {calDebug.allCircles.map((c, i) => `#${i + 1}(${c.x},${c.y} r=${c.r})`).join(', ')}
+                      </div>
+                    )}
+                    {calDebug.circlesFound > 10 && (
+                      <div style={{ fontSize: '0.65rem', color: '#888' }}>
+                        Circles: {calDebug.allCircles.slice(0, 5).map((c, i) => `#${i + 1}(${c.x},${c.y} r=${c.r})`).join(', ')} ... +{calDebug.circlesFound - 5} more
+                      </div>
+                    )}
+                    {calDebug.failReason && (
+                      <div style={{ color: '#e53935', fontSize: '0.7rem', marginTop: '2px' }}>
+                        Fail: {calDebug.failReason}
+                      </div>
+                    )}
+                    {calDebug.confidenceBreakdown && (
+                      <div style={{ fontSize: '0.65rem', color: '#888' }}>
+                        Scores: concentric={calDebug.confidenceBreakdown.concentricScore} bounds={calDebug.confidenceBreakdown.boundsScore} ratio={calDebug.confidenceBreakdown.ratioScore} (err={calDebug.confidenceBreakdown.ratioError})
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            )}
 
             {pendingScore && (
               <div

@@ -12,6 +12,7 @@ interface Props {
 }
 
 export function CalibrationScreen({ onCalibrated, onSkip }: Props) {
+  const isTestMode = window.location.pathname.endsWith('/test');
   const pipelineRef = useRef<VisionPipeline  | null>(null);
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const setCalibration = useVisionStore((s) => s.setCalibration);
@@ -105,30 +106,32 @@ export function CalibrationScreen({ onCalibrated, onSkip }: Props) {
 
       <CalibrationGuide />
 
-      <div style={{
-        width: '100%',
-        maxWidth: '500px',
-        padding: '12px',
-        borderRadius: 'var(--radius)',
-        background: 'var(--bg-card)',
-        border: '1px solid var(--border)',
-        textAlign: 'center',
-      }}>
-        <label style={{ display: 'block', marginBottom: '8px', color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
-          Or upload a video file for testing
-        </label>
-        <input
-          type="file"
-          accept="video/mp4,video/*"
-          onChange={handleFileChange}
-          style={{ fontSize: '0.85rem', color: 'var(--text-primary)' }}
-        />
-        {videoFile && (
-          <p style={{ marginTop: '8px', fontSize: '0.8rem', color: 'var(--success)' }}>
-            Loaded: {videoFile.name}
-          </p>
-        )}
-      </div>
+      {isTestMode && (
+        <div style={{
+          width: '100%',
+          maxWidth: '500px',
+          padding: '12px',
+          borderRadius: 'var(--radius)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border)',
+          textAlign: 'center',
+        }}>
+          <label style={{ display: 'block', marginBottom: '8px', color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
+            Or upload a video file for testing
+          </label>
+          <input
+            type="file"
+            accept="video/mp4,video/*"
+            onChange={handleFileChange}
+            style={{ fontSize: '0.85rem', color: 'var(--text-primary)' }}
+          />
+          {videoFile && (
+            <p style={{ marginTop: '8px', fontSize: '0.8rem', color: 'var(--success)' }}>
+              Loaded: {videoFile.name}
+            </p>
+          )}
+        </div>
+      )}
 
       <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
         {calibration && confidence >= 0.6 && (
