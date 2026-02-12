@@ -8,8 +8,9 @@ export function CalibrationGuide() {
     <div style={{
       padding: '12px',
       borderRadius: 'var(--radius)',
-      background: 'rgba(0,0,0,0.7)',
-      color: 'white',
+      background: 'var(--bg-card)',
+      border: '1px solid var(--border)',
+      color: 'var(--text-primary)',
       textAlign: 'center',
     }}>
       {!calibration ? (

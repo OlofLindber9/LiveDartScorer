@@ -35,7 +35,7 @@ export function TurnDisplay() {
           padding: '8px',
           marginBottom: '10px',
           borderRadius: 'var(--radius)',
-          background: 'rgba(229, 57, 53, 0.15)',
+          background: 'rgba(192, 57, 43, 0.2)',
           color: 'var(--danger)',
           fontWeight: 700,
           textAlign: 'center',
@@ -92,7 +92,7 @@ export function TurnDisplay() {
       }}>
         <div>
           <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Turn total: </span>
-          <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>{turnTotal}</span>
+          <span style={{ fontWeight: 900, fontSize: '1.1rem', color: 'var(--accent)' }}>{turnTotal}</span>
         </div>
 
         {currentTurn.length > 0 && (

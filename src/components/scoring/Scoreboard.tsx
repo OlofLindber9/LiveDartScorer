@@ -17,7 +17,7 @@ export function Scoreboard() {
             style={{
               padding: '12px',
               borderRadius: 'var(--radius)',
-              background: i === currentPlayerIndex ? 'rgba(29, 161, 242, 0.15)' : 'transparent',
+              background: i === currentPlayerIndex ? 'var(--accent-glow)' : 'transparent',
               border: i === currentPlayerIndex ? '2px solid var(--accent)' : '2px solid transparent',
               textAlign: 'center',
             }}
@@ -32,9 +32,10 @@ export function Scoreboard() {
             </div>
             <div style={{
               fontSize: '2.5rem',
-              fontWeight: 700,
+              fontWeight: 900,
               lineHeight: 1,
               marginBottom: '8px',
+              color: i === currentPlayerIndex ? 'var(--accent)' : 'var(--text-primary)',
             }}>
               {player.remaining}
             </div>

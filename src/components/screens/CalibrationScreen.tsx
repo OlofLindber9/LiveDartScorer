@@ -80,7 +80,7 @@ export function CalibrationScreen({ onCalibrated, onSkip }: Props) {
       padding: '20px',
       gap: '16px',
     }}>
-      <h2 style={{ fontSize: '1.3rem' }}>Calibrate Camera</h2>
+      <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--accent)' }}>Calibrate Camera</h2>
 
       {isLoading && (
         <p style={{ color: 'var(--text-secondary)' }}>Loading OpenCV...</p>
@@ -90,7 +90,7 @@ export function CalibrationScreen({ onCalibrated, onSkip }: Props) {
         <div style={{
           padding: '12px',
           borderRadius: 'var(--radius)',
-          background: 'rgba(229, 57, 53, 0.15)',
+          background: 'rgba(192, 57, 43, 0.2)',
           color: 'var(--danger)',
           textAlign: 'center',
           width: '100%',

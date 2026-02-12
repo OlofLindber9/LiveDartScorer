@@ -10,7 +10,7 @@ interface Props {
 
 const SVG_SCALE = 2;  // Scale up radii for better SVG resolution
 const OUTER_R = BOARD_RADII.DOUBLE_OUTER * SVG_SCALE;
-const VIEW_SIZE = OUTER_R + 20;
+const VIEW_SIZE = OUTER_R + 44;
 
 function polarToCartesian(angleDeg: number, radius: number): [number, number] {
   const rad = ((angleDeg - 90) * Math.PI) / 180;
@@ -117,7 +117,7 @@ export function VirtualDartboard({ onDartPlaced, placedDarts = [] }: Props) {
     );
 
     // Number labels
-    const labelR = (BOARD_RADII.DOUBLE_OUTER + 10) * SVG_SCALE;
+    const labelR = (BOARD_RADII.DOUBLE_OUTER + 14) * SVG_SCALE;
     const labelAngle = i * 18;
     const [lx, ly] = polarToCartesian(labelAngle, labelR);
     segments.push(
@@ -128,8 +128,8 @@ export function VirtualDartboard({ onDartPlaced, placedDarts = [] }: Props) {
         textAnchor="middle"
         dominantBaseline="central"
         fill={BOARD_COLORS.WHITE}
-        fontSize={14}
-        fontWeight={700}
+        fontSize={24}
+        fontWeight={800}
         style={{ pointerEvents: 'none', userSelect: 'none' }}
       >
         {num}
@@ -145,7 +145,7 @@ export function VirtualDartboard({ onDartPlaced, placedDarts = [] }: Props) {
         onClick={handleClick}
       >
         {/* Board background */}
-        <circle r={BOARD_RADII.DOUBLE_OUTER * SVG_SCALE} fill="#222" />
+        <circle r={BOARD_RADII.DOUBLE_OUTER * SVG_SCALE} fill="#1c1814" />
 
         {segments}
 
@@ -175,8 +175,8 @@ export function VirtualDartboard({ onDartPlaced, placedDarts = [] }: Props) {
               cx={0}
               cy={0}
               r={4}
-              fill="yellow"
-              stroke="black"
+              fill="#d4982a"
+              stroke="#0d0b08"
               strokeWidth={1}
               style={{ pointerEvents: 'none' }}
               transform={getDartTransform(dart, i)}

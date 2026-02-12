@@ -21,10 +21,29 @@ export function SetupScreen() {
       padding: '20px',
       gap: '32px',
     }}>
-      <h1 style={{ fontSize: '2rem', fontWeight: 700 }}>Dart Scorer</h1>
-      <p style={{ color: 'var(--text-secondary)', textAlign: 'center' }}>
-        501 — Double Out
-      </p>
+      <div style={{ textAlign: 'center' }}>
+        <h1 style={{
+          fontSize: '2.8rem',
+          fontWeight: 900,
+          letterSpacing: '-0.02em',
+          background: 'linear-gradient(135deg, #d4982a, #e8b84a)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          lineHeight: 1.1,
+        }}>
+          Darts Night
+        </h1>
+        <p style={{
+          color: 'var(--text-secondary)',
+          fontSize: '0.85rem',
+          marginTop: '6px',
+          letterSpacing: '0.15em',
+          textTransform: 'uppercase',
+          fontWeight: 700,
+        }}>
+          501 &middot; Double Out
+        </p>
+      </div>
 
       <div className="card" style={{ width: '100%', maxWidth: '400px' }}>
         <div style={{ marginBottom: '20px' }}>
@@ -72,7 +91,7 @@ export function SetupScreen() {
           style={{ width: '100%', marginTop: '8px' }}
           onClick={handleStart}
         >
-          Start Game
+          Let's Go!
         </button>
       </div>
     </div>

@@ -17,25 +17,37 @@ export function ResultScreen() {
       padding: '20px',
       gap: '24px',
     }}>
-      <h1 style={{ fontSize: '2rem', fontWeight: 700 }}>Game Over</h1>
-
-      {winnerPlayer && (
+      {winnerPlayer ? (
         <div style={{ textAlign: 'center' }}>
           <div style={{
-            fontSize: '1.2rem',
+            fontSize: '0.9rem',
             color: 'var(--text-secondary)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.15em',
+            fontWeight: 700,
             marginBottom: '8px',
           }}>
             Winner
           </div>
           <div style={{
-            fontSize: '2.5rem',
-            fontWeight: 700,
-            color: 'var(--success)',
+            fontSize: '3rem',
+            fontWeight: 900,
+            background: 'linear-gradient(135deg, #d4982a, #e8b84a)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            lineHeight: 1.1,
           }}>
             {winnerPlayer.name}
           </div>
         </div>
+      ) : (
+        <h1 style={{
+          fontSize: '2rem',
+          fontWeight: 900,
+          color: 'var(--accent)',
+        }}>
+          Game Over
+        </h1>
       )}
 
       <div className="card" style={{ width: '100%', maxWidth: '400px' }}>
@@ -77,7 +89,7 @@ export function ResultScreen() {
         className="btn btn-primary btn-lg"
         onClick={resetGame}
       >
-        New Game
+        Rematch!
       </button>
     </div>
   );
