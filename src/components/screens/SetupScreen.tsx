@@ -31,7 +31,7 @@ export function SetupScreen() {
           WebkitTextFillColor: 'transparent',
           lineHeight: 1.1,
         }}>
-          Darts Night
+          Dart Scorer
         </h1>
         <p style={{
           color: 'var(--text-secondary)',
